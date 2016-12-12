@@ -1,6 +1,6 @@
 # Elasticsearch, Logstash, Kibana, X-Pack (ELKX) Docker image
 
-[![](https://badge.imagelayers.io/sebp/elkx:latest.svg)](https://imagelayers.io/?images=sebp/elk:latest 'Get your own badge on imagelayers.io')
+[![](https://badge.imagelayers.io/sebp/elkx:latest.svg)](https://imagelayers.io/?images=sebp/elkx:latest 'Get your own badge on imagelayers.io')
 
 This Docker image provides a convenient centralised log server and log management web interface, by packaging Elasticsearch, Logstash, and Kibana, collectively known as ELK, and extends this stack with [X-Pack](https://www.elastic.co/products/x-pack), which bundles security, alerting, monitoring, reporting, and graph capabilities.
 
@@ -8,7 +8,9 @@ This image is hosted on Docker Hub at [https://hub.docker.com/r/sebp/elkx/](http
 
 The following tags are available:
 
-- `502`, `latest`: Elasticsearch 5.0.2, Logstash 5.0.2, Kibana 5.0.2, and X-Pack 5.0.2.
+- `511`, `latest`: Elasticsearch 5.1.1, Logstash 5.1.1, Kibana 5.1.1, and X-Pack 5.1.1.
+
+- `502`: Elasticsearch 5.0.2, Logstash 5.0.2, Kibana 5.0.2, and X-Pack 5.0.2.
 
 ## Usage notes
 
@@ -40,13 +42,13 @@ See the X-Pack documentation on [Getting Started with Security](https://www.elas
 
 In order for the container to display the proper log files for the running Elasticsearch cluster, it retrieves the name of the cluster by querying Elasticsearch at start-up (in the `start.sh` start-up script). With an X-Pack-enabled set-up, this request needs to be authenticated, and uses `elastic` with the default password to do this.
 
-Therefore, if the password is changed, the start-up script will fail. Possible workanrounds include extending the image to:
+Therefore, if the password is changed, the start-up script will fail. Possible workarounds include :
 
-- Dynamically use an environment-variable-provided password.
+- Extending the image to dynamically use an environment-variable-provided password.
 
-- Dynamically use an environment-variable-provided cluster name, to avoid querying Elasticsearch at start-up time.
+- Setting the cluster name with the `CLUSTER_NAME` environment variable (see documentation for the sebp/elk image), to avoid querying Elasticsearch at start-up time.
 
-In the same way, the Elasticsearch output Logstash plugin configuration file (`30-output.conf`) contains the hardcoded username and password for `elastic` to send log data to Elasticsearch, and will no longer work another user/password needs to be used. Similar means as those suggested above can be used.   
+In the same way, the Elasticsearch output Logstash plugin configuration file (`30-output.conf`) contains the hardcoded username and password for `elastic` to send log data to Elasticsearch, and will no longer work if another user/password needs to be used. Similar means as those suggested above can be used.   
 
 ## About
 
