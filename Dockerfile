@@ -1,5 +1,5 @@
 # Dockerfile for ELK stack with X-Pack
-# Elasticsearch, Logstash, Kibana, X-Pack 5.1.1
+# Elasticsearch, Logstash, Kibana, X-Pack 5.1.2
 
 # Build with:
 # docker build -t <repo-user>/elkx .
@@ -7,16 +7,16 @@
 # Run with:
 # docker run -p 5601:5601 -p 9200:9200 -p 5044:5044 -it --name elk <repo-user>/elkx
 
-FROM sebp/elk:511
+FROM sebp/elk:512
 MAINTAINER Sebastien Pujadas http://pujadas.net
-ENV REFRESHED_AT 2016-12-04
+ENV REFRESHED_AT 2017-02-26
 
 
 ###############################################################################
 #                                INSTALLATION
 ###############################################################################
 
-ENV XPACK_VERSION 5.1.1
+ENV XPACK_VERSION 5.1.2
 ENV XPACK_PACKAGE x-pack-${XPACK_VERSION}.zip
 
 WORKDIR /tmp
