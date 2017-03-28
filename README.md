@@ -8,17 +8,17 @@ This image is hosted on Docker Hub at [https://hub.docker.com/r/sebp/elkx/](http
 
 The following tags are available:
 
-- `521`, `latest`: Elasticsearch 5.2.2, Logstash 5.2.2, Kibana 5.2.2, and X-Pack 5.2.2.
+- `522`, `latest`: ELKX 5.2.2.
 
-- `521`: Elasticsearch 5.2.1, Logstash 5.2.1, Kibana 5.2.1, and X-Pack 5.2.1.
+- `521`: ELKX 5.2.1.
 
-- `520`: Elasticsearch 5.2.0, Logstash 5.2.0, Kibana 5.2.0, and X-Pack 5.2.0.
+- `520`: ELKX 5.2.0.
 
-- `512`: Elasticsearch 5.1.2, Logstash 5.1.2, Kibana 5.1.2, and X-Pack 5.1.2.
+- `512`: ELKX 5.1.2.
 
-- `511`: Elasticsearch 5.1.1, Logstash 5.1.1, Kibana 5.1.1, and X-Pack 5.1.1.
+- `511`: ELKX 5.1.1.
 
-- `502`: Elasticsearch 5.0.2, Logstash 5.0.2, Kibana 5.0.2, and X-Pack 5.0.2.
+- `502`: ELKX 5.0.2.
 
 ## Usage notes
 
