@@ -8,7 +8,9 @@ This image is hosted on Docker Hub at [https://hub.docker.com/r/sebp/elkx/](http
 
 The following tags are available:
 
-- `522`, `latest`: ELKX 5.2.2.
+- `530`, `latest`: ELKX 5.3.0.
+
+- `522`: ELKX 5.2.2.
 
 - `521`: ELKX 5.2.1.
 
@@ -30,15 +32,17 @@ This image uses the default configuration of X-Pack, meaning that out of the box
 
 - `elastic`, a superuser,
 
-- `kibana`, a basic Kibana user.
+- `kibana`, a basic Kibana user that can't do much.
 
 Their default password is `changeme`.
 
-In order to create a dummy log entry using the `elastic` superuser account, `docker exec` inside the running container (see the [Creating a dummy log entry section](http://elk-docker.readthedocs.io/#creating-dummy-log-entry) of the ELK Docker image documentation), and use the following command instead of the original one:
+In order to create a dummy log entry in Elasticsearch using the `elastic` superuser account, `docker exec` inside the running container (see the [Creating a dummy log entry section](http://elk-docker.readthedocs.io/#creating-dummy-log-entry) of the ELK Docker image documentation), and use the following command instead of the original one:
 
 	# /opt/logstash/bin/logstash -e 'input { stdin { } } output { elasticsearch { hosts => ["localhost"] user => "elastic" password => "changeme" } }'
 
 This entry can then be viewed by logging into Kibana as `elastic` (password: `changeme`).
+
+To run the [example Filebeat set-up](http://elk-docker.readthedocs.io/#forwarding-logs-filebeat) with ELKX, use the `nginx-filebeat` subdirectory of the [source Git repository on GitHub](https://github.com/spujadas/elkx-docker), which has been updated from the original example to work with X-Pack, and log in to Kibana as `elastic` (password: `changeme`) to view the logs.
 
 ### Security considerations
 
