@@ -28,6 +28,7 @@ RUN curl -O https://artifacts.elastic.co/downloads/packs/x-pack/${XPACK_PACKAGE}
  && rm -f ${XPACK_PACKAGE}
 
 RUN sed -i -e 's/curl localhost:9200/curl -u elastic:changeme localhost:9200/' \
+      -e 's/curl localhost:5601/curl -u kibana:changeme localhost:5601/' \
       /usr/local/bin/start.sh
 
 
