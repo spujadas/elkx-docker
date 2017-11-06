@@ -1,5 +1,5 @@
 # Dockerfile for ELK stack with X-Pack
-# Elasticsearch, Logstash, Kibana, X-Pack 5.6.2
+# Elasticsearch, Logstash, Kibana, X-Pack 6.0.0-rc2
 
 # Build with:
 # docker build -t <repo-user>/elkx .
@@ -7,7 +7,7 @@
 # Run with:
 # docker run -p 5601:5601 -p 9200:9200 -p 5044:5044 -it --name elk <repo-user>/elkx
 
-FROM sebp/elk:562
+FROM sebp/elk:600-rc2
 MAINTAINER Sebastien Pujadas http://pujadas.net
 ENV REFRESHED_AT 2017-05-10
 
@@ -15,7 +15,7 @@ ENV REFRESHED_AT 2017-05-10
 #                                INSTALLATION
 ###############################################################################
 
-ENV XPACK_VERSION 5.6.2
+ENV XPACK_VERSION 6.0.0-rc2
 ENV XPACK_PACKAGE x-pack-${XPACK_VERSION}.zip
 
 WORKDIR /tmp
@@ -27,8 +27,8 @@ RUN curl -O https://artifacts.elastic.co/downloads/packs/x-pack/${XPACK_PACKAGE}
       file:///tmp/${XPACK_PACKAGE} \
  && rm -f ${XPACK_PACKAGE}
 
-RUN sed -i -e 's/curl localhost:9200/curl -u elastic:changeme localhost:9200/' \
-      -e 's/curl localhost:5601/curl -u kibana:changeme localhost:5601/' \
+RUN sed -i -e 's/localhost:9200/${ELASTICSEARCH_USER}:${ELASTICSEARCH_PASSWORD}@localhost:9200/' \
+      -e 's/localhost:5601/${KIBANA_USER}:${KIBANA_PASSWORD}@localhost:5601/' \
       /usr/local/bin/start.sh
 
 
@@ -39,3 +39,13 @@ RUN sed -i -e 's/curl localhost:9200/curl -u elastic:changeme localhost:9200/' \
 ### configure Logstash
 
 ADD ./30-output.conf /etc/logstash/conf.d/30-output.conf
+
+
+###############################################################################
+#                                   START
+###############################################################################
+
+ADD ./startx.sh /usr/local/bin/startx.sh
+RUN chmod +x /usr/local/bin/startx.sh
+
+CMD [ "/usr/local/bin/startx.sh" ]
