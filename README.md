@@ -10,10 +10,6 @@ The following tags are available:
 
 - `latest`, `600`: ELKX 6.0.0.
 
-- `600-rc2`: ELKX 6.0.0-rc2.
-
-- `600-rc1`: ELKX 6.0.0-rc1.
-
 - `562`: ELKX 5.6.2.
 
 - `561`: ELKX 5.6.1.
