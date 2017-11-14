@@ -25,6 +25,8 @@ RUN curl -O https://artifacts.elastic.co/downloads/packs/x-pack/${XPACK_PACKAGE}
       file:///tmp/${XPACK_PACKAGE} --batch \
  && gosu kibana ${KIBANA_HOME}/bin/kibana-plugin install \
       file:///tmp/${XPACK_PACKAGE} \
+ && gosu logstash ${LOGSTASH_HOME}/bin/logstash-plugin install --local \
+      file:///tmp/${XPACK_PACKAGE} \
  && rm -f ${XPACK_PACKAGE}
 
 RUN sed -i -e 's/localhost:9200/${ELASTICSEARCH_USER}:${ELASTICSEARCH_PASSWORD}@localhost:9200/' \
