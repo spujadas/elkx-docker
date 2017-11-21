@@ -90,11 +90,12 @@ To get an idea of how this works, **in a non-production environment**, first set
 
 ### Creating a dummy log entry
 
-Building on the previous example, in order to create a dummy log entry in Elasticsearch using the `elastic` superuser account, `docker exec` inside the running container (see the [Creating a dummy log entry section](http://elk-docker.readthedocs.io/#creating-dummy-log-entry) of the ELK Docker image documentation), and use the following command instead of the original one:
+Building on the previous example, in order to create a dummy log entry in Elasticsearch using the `elastic` superuser account, `docker exec` inside the running container (see the [Creating a dummy log entry section](http://elk-docker.readthedocs.io/#creating-dummy-log-entry) of the ELK Docker image documentation), and use the following command instead of the original one (replace the password with the one you set for the `elastic` user):
 
-	# /opt/logstash/bin/logstash -e 'input { stdin { } } output { elasticsearch { hosts => ["localhost"] user => "elastic" password => "changeme" } }'
+	# /opt/logstash/bin/logstash --path.data /tmp/logstash/data \
+		-e 'input { stdin { } } output { elasticsearch { hosts => ["localhost"] user => "elastic" password => "changeme" } }'
 
-This entry can then be viewed by logging into Kibana as `elastic` (password: `changeme`).
+This entry can then be viewed by logging into Kibana as `elastic`.
 
 ### Forwarding logs with Filebeat: example set-up and configuration
 
