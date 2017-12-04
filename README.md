@@ -101,6 +101,12 @@ This entry can then be viewed by logging into Kibana as `elastic`.
 
 To run the [example Filebeat set-up](http://elk-docker.readthedocs.io/#forwarding-logs-filebeat) with ELKX, use the `nginx-filebeat` subdirectory of the [source Git repository on GitHub](https://github.com/spujadas/elkx-docker), and update the credentials to connect to Elasticsearch in `start.sh` before building the image.
 
+### Development mode
+
+The `latest` image includes a development mode, which disables X-Pack security in Elasticsearch and Kibana, thereby eliminating the need to set up user credentials as described above.
+
+To start a container in development mode, set the `DEVELOPMENT_MODE` environment variable to `1`. 
+
 ### Security considerations
 
 X-Pack allows for a secured set-up of the ELK stack, but by default this image is insecure (no message authentication, no auditing, default certificates).

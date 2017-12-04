@@ -5,6 +5,17 @@
 # and Kibana with X-Pack
 #
 
+
+## development mode (disables X-Pack security)
+
+if [ "$DEVELOPMENT_MODE" == "1" ]; then
+	echo xpack.security.enabled: false >> ${ES_PATH_CONF}/elasticsearch.yml
+	echo xpack.security.enabled: false >> ${KIBANA_HOME}/config/kibana.yml
+	/usr/local/bin/start.sh
+	exit 0
+fi
+
+
 ## bootstrap mode (if ELASTIC_BOOTSTRAP_PASSWORD is defined)
 
 if [ "$ELASTIC_BOOTSTRAP_PASSWORD" ]; then
