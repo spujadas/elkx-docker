@@ -7,15 +7,15 @@
 # Run with:
 # docker run -p 5601:5601 -p 9200:9200 -p 5044:5044 -it --name elk <repo-user>/elkx
 
-FROM sebp/elk:600
+FROM sebp/elk:621
 MAINTAINER Sebastien Pujadas http://pujadas.net
-ENV REFRESHED_AT 2017-05-10
+ENV REFRESHED_AT 2018-02-27
 
 ###############################################################################
 #                                INSTALLATION
 ###############################################################################
 
-ENV XPACK_VERSION 6.0.0
+ENV XPACK_VERSION 6.2.1
 ENV XPACK_PACKAGE x-pack-${XPACK_VERSION}.zip
 
 WORKDIR /tmp
