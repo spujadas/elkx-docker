@@ -9,7 +9,7 @@
 
 FROM sebp/elk:621
 MAINTAINER Sebastien Pujadas http://pujadas.net
-ENV REFRESHED_AT 2017-05-10
+ENV REFRESHED_AT 2018-02-27
 
 ###############################################################################
 #                                INSTALLATION
