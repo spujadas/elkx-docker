@@ -9,13 +9,13 @@
 ## development mode (disables X-Pack security)
 
 if [ "$DEVELOPMENT_MODE" == "1" ]; then
-	if ! grep -q xpack.security.enabled ${ES_PATH_CONF}/elasticsearch.yml
-	then
-		echo xpack.security.enabled: false >> ${ES_PATH_CONF}/elasticsearch.yml
-		echo xpack.security.enabled: false >> ${KIBANA_HOME}/config/kibana.yml
-	fi
-	/usr/local/bin/start.sh
-	exit 0
+    if ! grep -q xpack.security.enabled ${ES_PATH_CONF}/elasticsearch.yml
+    then
+        echo xpack.security.enabled: false >> ${ES_PATH_CONF}/elasticsearch.yml
+        echo xpack.security.enabled: false >> ${KIBANA_HOME}/config/kibana.yml
+    fi
+    /usr/local/bin/start.sh
+    exit 0
 fi
 
 
@@ -59,6 +59,8 @@ if [ -z "$ELASTICSEARCH_START" ] || [ "$ELASTICSEARCH_START" == "1" ]; then
     echo "variables (see documentation)."
     exit 1
   fi
+
+  export ELASTICSEARCH_URL=${ES_PROTOCOL:-http}://${ELASTICSEARCH_USER}:${ELASTICSEARCH_PASSWORD}@localhost:9200
 fi
 
 
@@ -90,31 +92,32 @@ fi
 ### if Kibana is to be started...
 
 if [ -z "$KIBANA_START" ] || [ "$KIBANA_START" == "1" ]; then
-  # exit if no credentials have been set to monitor it
-  if [ -z "$KIBANA_USER" ] || [ -z "$KIBANA_PASSWORD" ]; then
-    echo "You must set the KIBANA_USER and KIBANA_PASSWORD environment"
-    echo "variables (see documentation)."
-    exit 1
-  fi
 
-  # add credentials to kibana.yml
-  if grep -Eq ^#?elasticsearch.username: ${KIBANA_HOME}/config/kibana.yml; then
-    awk -v LINE="elasticsearch.username: \"${KIBANA_USER}\"" '{ sub(/^#?elasticsearch.username:.*/, LINE); print; }' \
-      ${KIBANA_HOME}/config/kibana.yml > ${KIBANA_HOME}/config/kibana.yml.new \
-      && mv ${KIBANA_HOME}/config/kibana.yml.new ${KIBANA_HOME}/config/kibana.yml
-  else
-    echo elasticsearch.username: \"${KIBANA_USER}\" >> ${KIBANA_HOME}/config/kibana.yml
-  fi
+  # if credentials to connect Kibana to Elasticsearch have been defined...
+  if [ "$KIBANA_USER" ] && [ "$KIBANA_PASSWORD" ]; then
 
-  if grep -Eq ^#?elasticsearch.password: ${KIBANA_HOME}/config/kibana.yml; then
-    awk -v LINE="elasticsearch.password: \"${KIBANA_PASSWORD}\"" '{ sub(/^#?elasticsearch.password:.*/, LINE); print; }' \
-      ${KIBANA_HOME}/config/kibana.yml > ${KIBANA_HOME}/config/kibana.yml.new \
-      && mv ${KIBANA_HOME}/config/kibana.yml.new ${KIBANA_HOME}/config/kibana.yml
-  else
-    echo elasticsearch.password: \"${KIBANA_PASSWORD}\" >> ${KIBANA_HOME}/config/kibana.yml
-  fi
+    # add credentials to kibana.yml
+    if grep -Eq ^#?elasticsearch.username: ${KIBANA_HOME}/config/kibana.yml; then
+      awk -v LINE="elasticsearch.username: \"${KIBANA_USER}\"" '{ sub(/^#?elasticsearch.username:.*/, LINE); print; }' \
+        ${KIBANA_HOME}/config/kibana.yml > ${KIBANA_HOME}/config/kibana.yml.new \
+        && mv ${KIBANA_HOME}/config/kibana.yml.new ${KIBANA_HOME}/config/kibana.yml
+    else
+      echo elasticsearch.username: \"${KIBANA_USER}\" >> ${KIBANA_HOME}/config/kibana.yml
+    fi
 
-  chmod +r ${KIBANA_HOME}/config/kibana.yml
+    if grep -Eq ^#?elasticsearch.password: ${KIBANA_HOME}/config/kibana.yml; then
+      awk -v LINE="elasticsearch.password: \"${KIBANA_PASSWORD}\"" '{ sub(/^#?elasticsearch.password:.*/, LINE); print; }' \
+        ${KIBANA_HOME}/config/kibana.yml > ${KIBANA_HOME}/config/kibana.yml.new \
+        && mv ${KIBANA_HOME}/config/kibana.yml.new ${KIBANA_HOME}/config/kibana.yml
+    else
+      echo elasticsearch.password: \"${KIBANA_PASSWORD}\" >> ${KIBANA_HOME}/config/kibana.yml
+    fi
+
+    chmod +r ${KIBANA_HOME}/config/kibana.yml
+
+    export KIBANA_URL=http://${KIBANA_USER}:${KIBANA_PASSWORD}@localhost:5601
+
+  fi 
 fi
 
 

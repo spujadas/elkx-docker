@@ -1,6 +1,6 @@
 # Elasticsearch, Logstash, Kibana, X-Pack (ELKX) Docker image
 
-[![](https://badge.imagelayers.io/sebp/elkx:latest.svg)](https://imagelayers.io/?images=sebp/elkx:latest 'Get your own badge on imagelayers.io')
+[![](https://images.microbadger.com/badges/image/sebp/elkx.svg)](https://microbadger.com/images/sebp/elkx "Get your own image badge on microbadger.com")
 
 This Docker image provides a convenient centralised log server and log management web interface, by packaging Elasticsearch, Logstash, and Kibana, collectively known as ELK, and extends this stack with [X-Pack](https://www.elastic.co/products/x-pack), which bundles security, alerting, monitoring, reporting, and graph capabilities.
 

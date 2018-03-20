@@ -29,10 +29,6 @@ RUN curl -O https://artifacts.elastic.co/downloads/packs/x-pack/${XPACK_PACKAGE}
       file:///tmp/${XPACK_PACKAGE} \
  && rm -f ${XPACK_PACKAGE}
 
-RUN sed -i -e 's/localhost:9200/${ELASTICSEARCH_USER}:${ELASTICSEARCH_PASSWORD}@localhost:9200/' \
-      -e 's/localhost:5601/${KIBANA_USER}:${KIBANA_PASSWORD}@localhost:5601/' \
-      /usr/local/bin/start.sh
-
 
 ###############################################################################
 #                               CONFIGURATION
