@@ -8,7 +8,9 @@ This image is hosted on Docker Hub at [https://hub.docker.com/r/sebp/elkx/](http
 
 The following tags are available:
 
-- `latest`, `622`: ELKX 6.2.2.
+- `latest`, `623`: ELKX 6.2.3.
+
+- `622`: ELKX 6.2.2.
 
 - `621`: ELKX 6.2.1.
 
