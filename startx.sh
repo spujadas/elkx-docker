@@ -30,8 +30,8 @@ if [ "$ELASTIC_BOOTSTRAP_PASSWORD" ]; then
     ${ES_HOME}/bin/elasticsearch-keystore create
   fi
 
-  # remove bootstrap.pass setting
-  ${ES_HOME}/bin/elasticsearch-keystore remove bootstrap.pass
+  # remove bootstrap.password setting
+  ${ES_HOME}/bin/elasticsearch-keystore remove bootstrap.password > /dev/null
 
   # set bootstrap.password
   echo $ELASTIC_BOOTSTRAP_PASSWORD \
