@@ -84,7 +84,7 @@ To set the bootstrap password for `elastic`, start a container with the `ELASTIC
 
 Once the container has started, only Elasticsearch will be running, and the user can use the `elastic` account (with the bootstrap password) to change its own password and assign passwords to the built-in users, for instance:
 
-- by manually `docker exec`-ing into the running container and [using the `setup-passwords` tool](https://www.elastic.co/guide/en/x-pack/6.0/setting-up-authentication.html#set-built-in-user-passwords),
+- by manually `docker exec`-ing into the running container and [using the `setup-passwords` tool](https://www.elastic.co/guide/en/x-pack/6.0/setting-up-authentication.html#set-built-in-user-passwords) located in `$ES_HOME/bin/x-pack`,
 
 - or by manually or programmatically [using the user management REST APIs](https://www.elastic.co/guide/en/elasticsearch/reference/6.0/security-api-users.html). 
 
