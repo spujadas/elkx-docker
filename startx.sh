@@ -6,6 +6,19 @@
 #
 
 
+## handle termination gracefully
+
+_term() {
+  echo "Terminating ELK"
+  service elasticsearch stop
+  service logstash stop
+  service kibana stop
+  exit 0
+}
+
+trap _term SIGTERM SIGINT
+
+
 ## development mode (disables X-Pack security)
 
 if [ "$DEVELOPMENT_MODE" == "1" ]; then
