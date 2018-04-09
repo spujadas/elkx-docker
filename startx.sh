@@ -8,12 +8,9 @@
 
 ## handle termination gracefully
 
-_term() {
-  echo "Terminating ELK"
-  service elasticsearch stop
-  service logstash stop
-  service kibana stop
-  exit 0
+_term() { 
+  kill -TERM ${child} 2>/dev/null
+  wait ${child}
 }
 
 trap _term SIGTERM SIGINT
@@ -136,4 +133,7 @@ fi
 
 ### run start-up script
 
-/usr/local/bin/start.sh
+/usr/local/bin/start.sh &
+
+child=$! 
+wait ${child}
