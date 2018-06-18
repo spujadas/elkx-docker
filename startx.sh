@@ -8,7 +8,7 @@
 
 ## handle termination gracefully
 
-_term() { 
+_term() {
   kill -TERM ${child} 2>/dev/null
   wait ${child}
 }
@@ -34,7 +34,7 @@ fi
 if [ "$ELASTIC_BOOTSTRAP_PASSWORD" ]; then
   # set Elasticsearch configuration path
   export ES_PATH_CONF=/etc/elasticsearch
-  
+
   # create Elasticsearch keystore if it doesn't exist
   if [ ! -f $ES_PATH_CONF/elasticsearch.keystore ]; then
     ${ES_HOME}/bin/elasticsearch-keystore create
@@ -57,6 +57,13 @@ if [ "$ELASTIC_BOOTSTRAP_PASSWORD" ]; then
 
   export ELASTICSEARCH_USER=elastic
   export ELASTICSEARCH_PASSWORD=${ELASTIC_BOOTSTRAP_PASSWORD}
+fi
+
+### Add built-in user password to Logstash for X-Pack monitoring
+
+if ! grep -q xpack.monitoring.elasticsearch.password ${LOGSTASH_HOME}/config/logstash.yml
+then
+    echo xpack.monitoring.elasticsearch.password: \${LOGSTASH_PASSWORD} >> ${LOGSTASH_HOME}/config/logstash.yml
 fi
 
 
@@ -86,7 +93,7 @@ if [ -z "$LOGSTASH_START" ] || [ "$LOGSTASH_START" == "1" ]; then
   else
     echo export LOGSTASH_USER=${LOGSTASH_USER} >> /etc/default/logstash
   fi
-  
+
   if grep -Eq "^export LOGSTASH_PASSWORD=" /etc/default/logstash; then
     awk -v LINE="export LOGSTASH_PASSWORD=${LOGSTASH_PASSWORD}" '{ sub(/^export LOGSTASH_PASSWORD=.*/, LINE); print; }' \
       /etc/default/logstash > /etc/default/logstash.new \
@@ -127,7 +134,7 @@ if [ -z "$KIBANA_START" ] || [ "$KIBANA_START" == "1" ]; then
 
     export KIBANA_URL=http://${KIBANA_USER}:${KIBANA_PASSWORD}@localhost:5601
 
-  fi 
+  fi
 fi
 
 
@@ -135,5 +142,5 @@ fi
 
 /usr/local/bin/start.sh &
 
-child=$! 
+child=$!
 wait ${child}
