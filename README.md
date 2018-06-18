@@ -103,8 +103,8 @@ In another shell, open a bash session in the running container (replacing `<name
 	Initiating the setup of reserved user elastic,kibana,logstash_system passwords.
 	You will be prompted to enter passwords as the process progresses.
 	Please confirm that you would like to continue [y/N]y
-	
-	
+
+
 	Enter password for [elastic]: changeme
 	Reenter password for [elastic]: changeme
 	Enter password for [kibana]: changeme
@@ -114,13 +114,6 @@ In another shell, open a bash session in the running container (replacing `<name
 	Changed password for user [kibana]
 	Changed password for user [logstash_system]
 	Changed password for user [elastic]
-
-Now configure monitoring for Logstash with the right users:
-
-	# cat >> /opt/logstash/config/logstash.yml
-	xpack.monitoring.elasticsearch.username: "logstash_system"
-	xpack.monitoring.elasticsearch.password: "changeme"
-	^D
 
 Stop the container, then edit the docker-compose.yml as follows:
 
@@ -160,15 +153,15 @@ Once the container has started, only Elasticsearch will be running, and the user
 
 - by manually `docker exec`-ing into the running container and [using the `setup-passwords` tool](https://www.elastic.co/guide/en/x-pack/6.0/setting-up-authentication.html#set-built-in-user-passwords) located in `$ES_HOME/bin/x-pack`,
 
-- or by manually or programmatically [using the user management REST APIs](https://www.elastic.co/guide/en/elasticsearch/reference/6.0/security-api-users.html). 
+- or by manually or programmatically [using the user management REST APIs](https://www.elastic.co/guide/en/elasticsearch/reference/6.0/security-api-users.html).
 
 Once all the passwords have been assigned, stop the container, and start the container in _normal mode_ as described below.
 
-### Running the container in normal mode 
+### Running the container in normal mode
 
 In order to start up and run normally, the container needs to have two users that are authorised to connect to Elasticsearch's and Kibana's interfaces (JSON and web, respectively), and their credentials must be set using the following environment variables: `ELASTICSEARCH_USER`, `ELASTICSEARCH_PASSWORD`, `KIBANA_USER`, and `KIBANA_PASSWORD`.
 
-In addition, the default Logstash configuration (in `/etc/logstash/conf.d/30-output.conf`) uses the user defined by the `LOGSTASH_USER` and `LOGSTASH_PASSWORD` environment variables to sends logs to Elasticsearch. 
+In addition, the default Logstash configuration (in `/etc/logstash/conf.d/30-output.conf`) uses the user defined by the `LOGSTASH_USER` and `LOGSTASH_PASSWORD` environment variables to sends logs to Elasticsearch.
 
 To get an idea of how this works, **in a non-production environment**, first set passwords for the built-in `elastic` and `kibana` users to `changeme` in bootstrap mode as described above, then re-run the container with:
 
@@ -195,7 +188,7 @@ To run the [example Filebeat set-up](http://elk-docker.readthedocs.io/#forwardin
 
 The `latest` image includes a development mode, which disables X-Pack security in Elasticsearch and Kibana, thereby eliminating the need to set up user credentials as described above.
 
-To start a container in development mode, set the `DEVELOPMENT_MODE` environment variable to `1`. 
+To start a container in development mode, set the `DEVELOPMENT_MODE` environment variable to `1`.
 
 ### Security considerations
 
