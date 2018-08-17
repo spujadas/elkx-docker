@@ -6,6 +6,8 @@ This Docker image provides a convenient centralised log server and log managemen
 
 This image is hosted on Docker Hub at [https://hub.docker.com/r/sebp/elkx/](https://hub.docker.com/r/sebp/elkx/).
 
+**This image is frozen as of version 6.2.4 of the ELK stack. Since version 6.3, X-Pack is installed with [Elasticsearch](https://www.elastic.co/guide/en/elasticsearch/reference/6.3/installing-xpack-es.html), [Logstash](https://www.elastic.co/guide/en/logstash/6.3/installing-xpack-log.html), and [Kibana](https://www.elastic.co/guide/en/kibana/6.3/installing-xpack-kb.html), making this image somewhat irrelevant. In order to help users set up X-Pack, X-Pack-specific helper scripts and documentation that were developed for the *sebp/elkx* image will be copied over to the repository for the *sebp/elk* image for guidance purposes, but it will be up to the users to actually enable and configure X-Pack themselves using Elastic's official documentation if they need the corresponding features.**
+
 The following tags are available:
 
 - `latest`, `624`: ELKX 6.2.4.
